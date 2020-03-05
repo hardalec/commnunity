@@ -1,4 +1,12 @@
-#github:
-#  -id: Iv1.358f3b64f69a8c47
-#  -secret: 754bfce1bfa239040b89a38e28c40399c82dabab
-#  -redirecturi: http://localhost:8080/callback
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/community;AUTO_SERVER=TRUE
+    username: sa
+    password: 123
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
