@@ -16,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Provider;
 import java.util.UUID;
@@ -39,7 +41,7 @@ public class AuthorizeController {
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
                            HttpServletRequest request,
-                           Model model){
+                           HttpServletResponse response){
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         accessTokenDto.setCode(code);
         accessTokenDto.setState(state);
@@ -53,21 +55,24 @@ public class AuthorizeController {
         GithubUser githubUser = githubProvider.githubUser(token);
 
         if(githubUser != null){
+            // 获取用户信息
             UserEntity user = new UserEntity();
+            String ttoken = UUID.randomUUID().toString();
+
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setName(githubUser.getName());
-            user.setToken(UUID.randomUUID().toString());
+            user.setToken(ttoken);
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
-
-            System.out.println(user);
+            // 存入数据库中
             userRepository.save(user);
-            request.getSession().setAttribute("user", githubUser);
-//            model.addAttribute("user", githubUser);
-//            System.out.println(model);
-            return "redirect:/";
-        }else{
-            return "redirect:/";
+            // 将token 存入 cookies 中
+            response.addCookie(new Cookie("token", ttoken));
+            // ！！！！！！！！！！！！！！！！！！！！！！！！！！！！111
+            // 特别注意，这里有个空指针，删除所有cookiess，运行就会出现
+            // 导致无法登录首页
+//            request.getSession().setAttribute("user", user);
         }
+        return "redirect:/";
     }
 }
