@@ -3,14 +3,12 @@ package com.jing.community.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
-public class UserEntity {
+//@Table(name = "USER")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,4 +17,5 @@ public class UserEntity {
     private String token;
     private long gmtCreate;
     private long gmtModified;
+    private String avatarUrl;
 }

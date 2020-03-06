@@ -1,7 +1,7 @@
 package com.jing.community.controller;
 
 import com.jing.community.entity.Question;
-import com.jing.community.entity.UserEntity;
+import com.jing.community.entity.User;
 import com.jing.community.repository.QuestionRepository;
 import com.jing.community.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,25 +52,28 @@ public class PublishController {
         // 获取登录用户信息
         Cookie[] cookies = request.getCookies();
         String token = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
-                break;
+        if(cookies != null && cookies.length != 0){
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    token = cookie.getValue();
+                    break;
+                }
             }
         }
         if (token == null) {
             model.addAttribute("error", "用户未登录");
             return "publish";
         }else{
-            UserEntity userEntity = userRepository.findByToken(token);
+            User user = userRepository.findByToken(token);
             // 将用户信息存入question
             Question question = new Question();
             question.setTitle(title);
             question.setDescription(description);
             question.setTag(tag);
-            question.setCreate(userEntity.getId());
+            question.setCreate(user.getId());
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCnt(0); question.setCommentCnt(0);question.setLikeCnt(0);
             // 保存信息，刷新返回首页
             questionRepository.save(question);
             return "redirect:/";

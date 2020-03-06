@@ -2,23 +2,17 @@ package com.jing.community.controller;
 
 import com.jing.community.dto.AccessTokenDto;
 import com.jing.community.dto.GithubUser;
-import com.jing.community.entity.UserEntity;
+import com.jing.community.entity.User;
 import com.jing.community.provider.GithubProvider;
 import com.jing.community.repository.UserRepository;
-import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.security.Provider;
 import java.util.UUID;
 
 @Controller
@@ -47,7 +41,7 @@ public class AuthorizeController {
 
         if(githubUser != null && githubUser.getName() != null){
             // 获取用户信息
-            UserEntity user = new UserEntity();
+            User user = new User();
             String ttoken = UUID.randomUUID().toString();
 
             user.setAccountId(String.valueOf(githubUser.getId()));
@@ -55,6 +49,7 @@ public class AuthorizeController {
             user.setToken(ttoken);
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             // 存入数据库中
             userRepository.save(user);
             // 将token 存入 cookies 中

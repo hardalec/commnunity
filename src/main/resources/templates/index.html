@@ -5,6 +5,7 @@
     <title>北海社区</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
@@ -13,11 +14,8 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">北海社区</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">北海社区</a>
+            <a class="navbar-brand" href="/">北海社区</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,6 +46,34 @@
         </div>
     </div>
 </nav>
-
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2>
+                <span class="glyphicon glyphicon-list"aria-hidden="true">发现</span>
+            </h2>
+            <hr>
+            <div class="media" th:each="question:${questions}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object touxiang img-rounded" src="https://avatars0.githubusercontent.com/u/21342946?v=4">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.title}">我是天才</h4>
+                    <span th:text="${question.description}">我智商高，相貌好，人品优秀，简直完美</span><br>
+                    <span class="text-desc">
+                        <span th:text="${question.commentCnt}"></span> 个回复 ·
+                        <span th:text="${question.viewCnt}"></span> 次浏览 ·
+                        <span th:text="${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h5 class="text">热门话题</h5>
+        </div>
+    </div>
+</div>
 </body>
 </html>
