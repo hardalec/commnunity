@@ -3,8 +3,6 @@ package com.jing.community.controller;
 import com.jing.community.dto.AccessTokenDto;
 import com.jing.community.dto.GithubUser;
 import com.jing.community.entity.UserEntity;
-import com.jing.community.mapper.UserMapper;
-import com.jing.community.model.User;
 import com.jing.community.provider.GithubProvider;
 import com.jing.community.repository.UserRepository;
 import okhttp3.Request;
@@ -30,13 +28,6 @@ public class AuthorizeController {
     @Autowired
     private UserRepository userRepository;
 
-//    @Value(("${github.id}"))
-//    private String clientId;
-//    @Value("${gihub.secret}")
-//    private String clientSecretId;
-//    @Value("${github.redirecturi}")
-//    private String redirectUri;
-
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
@@ -54,7 +45,7 @@ public class AuthorizeController {
         System.out.println("成功拿到token：" + token);
         GithubUser githubUser = githubProvider.githubUser(token);
 
-        if(githubUser != null){
+        if(githubUser != null && githubUser.getName() != null){
             // 获取用户信息
             UserEntity user = new UserEntity();
             String ttoken = UUID.randomUUID().toString();
