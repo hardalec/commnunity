@@ -1,0 +1,18 @@
+.main{
+    margin: 40px;
+    background-color: #b2dba1;
+}
+.body {
+    background-color: #cccccc;
+}
+
+.btn-publish{
+    float: right;
+    margin-bottom: 20px;
+}
+
+.text{
+    margin: 15px;
+    line-height: 1.5;
+    font-size: 16px;
+}
