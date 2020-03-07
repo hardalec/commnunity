@@ -50,10 +50,10 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2>
-                <span class="glyphicon glyphicon-list"aria-hidden="true">发现</span>
+                <span class="glyphicon glyphicon-list" aria-hidden="true">发现</span>
             </h2>
             <hr>
-            <div class="media" th:each="question:${questions}">
+            <div class="media" th:each="question:${pagInations.questionDtoList}">
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object touxiang img-rounded" src="https://avatars0.githubusercontent.com/u/21342946?v=4">
@@ -69,6 +69,33 @@
                     </span>
                 </div>
             </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li th:if="${pagInations.showFirstPage==true}">
+                        <a href="#" aria-label="Previous" th:href="@{/(page=1)}">
+                            <span aria-hidden="true">&lt;&lt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pagInations.showPrevious==true}">
+                        <a href="#" aria-label="Previous" th:href="@{/(page=${pagInations.currentPage-1})}">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:each="pp:${pagInations.pages}" th:class="${pagInations.currentPage==pp}?'active'">
+                        <a th:href="@{/(page=${pp})}" th:text="${pp}"></a>
+                    </li>
+                    <li th:if="${pagInations.showEndPage==true}">
+                        <a href="#" aria-label="Next" th:href="@{/(page=${pagInations.currentPage+1})}">
+                            <span aria-hidden="true">&gt;&gt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pagInations.showNext==true}">
+                        <a href="#" aria-label="Next" th:href="@{/(page=${pagInations.totalpage})}">
+                            <span aria-hidden="true">&gt;&gt;&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h5 class="text">热门话题</h5>
