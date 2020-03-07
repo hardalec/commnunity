@@ -57,7 +57,7 @@ public class AuthorizeController {
             // ！！！！！！！！！！！！！！！！！！！！！！！！！！！！111
             // 特别注意，这里有个空指针，删除所有cookiess，运行就会出现
             // 导致无法登录首页
-//            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("user", user);
         }
         return "redirect:/";
     }

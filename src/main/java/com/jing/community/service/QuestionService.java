@@ -1,4 +1,4 @@
-package com.jing.community.controller.service;
+package com.jing.community.service;
 
 import com.jing.community.dto.PageInationDto;
 import com.jing.community.dto.QuestionDto;
@@ -10,10 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,16 +24,12 @@ public class QuestionService {
     private UserRepository userRepository;
 
     public PageInationDto list(Integer currentPage, Integer size) {
-//        Integer start = size * (page - 1) + 1;
-//        Integer end = start + size - 1;
 
-//        List<Question> questionList = questionRepository.findByIdBetween(start, end);
         // 获取该页下所有的文章
         PageRequest pageRequest = PageRequest.of(currentPage - 1, size);
         Page<Question> questionList = questionRepository.findAll(pageRequest);
 
         List<QuestionDto> questionDtoList = new ArrayList<>();
-
         PageInationDto pageInationDto = new PageInationDto();
         // 获取每一个文章的作者信息
         for (Question question : questionList) {

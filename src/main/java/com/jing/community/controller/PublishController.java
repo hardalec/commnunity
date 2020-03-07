@@ -50,21 +50,22 @@ public class PublishController {
             return "publish";
         }
         // 获取登录用户信息
-        Cookie[] cookies = request.getCookies();
-        String token = null;
-        if(cookies != null && cookies.length != 0){
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    token = cookie.getValue();
-                    break;
-                }
-            }
-        }
-        if (token == null) {
+//        Cookie[] cookies = request.getCookies();
+//        String token = null;
+//        if(cookies != null && cookies.length != 0){
+//            for (Cookie cookie : cookies) {
+//                if (cookie.getName().equals("token")) {
+//                    token = cookie.getValue();
+//                    break;
+//                }
+//            }
+//        }
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
             model.addAttribute("error", "用户未登录");
             return "publish";
         }else{
-            User user = userRepository.findByToken(token);
+//            User user = userRepository.findByToken(token);
             // 将用户信息存入question
             Question question = new Question();
             question.setTitle(title);
