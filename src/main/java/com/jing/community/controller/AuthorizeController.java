@@ -39,19 +39,24 @@ public class AuthorizeController {
         System.out.println("成功拿到token：" + token);
         GithubUser githubUser = githubProvider.githubUser(token);
 
-        if(githubUser != null && githubUser.getName() != null){
-            // 获取用户信息
-            User user = new User();
+        if(githubUser != null){
+            User user;
             String ttoken = UUID.randomUUID().toString();
-
+            if(userRepository.findByAccountId(String.valueOf(githubUser.getId())) == null) {
+                // 没有就新建
+                user = new User();
+            }else {
+                // 有的话就更新
+                user = userRepository.findByAccountId(String.valueOf(githubUser.getId()));
+            }
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setName(githubUser.getName());
             user.setToken(ttoken);
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            // 存入数据库中
             userRepository.save(user);
+
             // 将token 存入 cookies 中
             response.addCookie(new Cookie("token", ttoken));
             // ！！！！！！！！！！！！！！！！！！！！！！！！！！！！111

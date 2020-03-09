@@ -1,0 +1,10 @@
+//package com.jing.community.controller;
+//
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+//public class QuestionController {
+//    @GetMapping("/")
+//    public String editQuestion(){
+//
+//    }
+//}

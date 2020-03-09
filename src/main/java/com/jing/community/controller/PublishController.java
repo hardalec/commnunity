@@ -7,12 +7,11 @@ import com.jing.community.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 public class PublishController {
@@ -25,6 +24,7 @@ public class PublishController {
 
     @GetMapping("/publish")
     public String publish(){
+
         return "publish";
     }
     @PostMapping("/publish")
@@ -79,5 +79,12 @@ public class PublishController {
             questionRepository.save(question);
             return "redirect:/";
         }
+    }
+
+    @PutMapping("/publish/{id}")
+    public String editPublish(@PathVariable("questionId") Integer questionId){
+//        Optional<Question> question = questionRepository.findById(questionId);
+//
+        return "publish";
     }
 }

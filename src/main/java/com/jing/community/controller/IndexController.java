@@ -26,7 +26,7 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(value = "page", defaultValue = "1") Integer page,
-                        @RequestParam(value = "size", defaultValue = "7") Integer size){
+                        @RequestParam(value = "size", defaultValue = "3") Integer size){
 //        Cookie[] cookies = request.getCookies();
 //        String token = null;
 //        if(cookies != null && cookies.length != 0){
