@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionService {
@@ -51,6 +52,18 @@ public class QuestionService {
         return pageInationDto;
     }
 
+    public QuestionDto getById(Integer id){
+        QuestionDto questionDto = new QuestionDto();
+        Question question = questionRepository.findById(id).get();
+        BeanUtils.copyProperties(question, questionDto);
+        User user = userRepository.findById(question.getCreate()).get();
+        questionDto.setUser(user);
+        return questionDto;
+    }
 
-
+    public void incView(Integer id) {
+        Question question = questionRepository.findById(id).get();
+        question.setViewCnt(question.getViewCnt() + 1);
+        questionRepository.save(question);
+    }
 }

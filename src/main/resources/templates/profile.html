@@ -27,10 +27,9 @@
 <!--                    </a>-->
 <!--                </div>-->
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}">我是天才</h4>
+                    <a th:href="@{/question/} + ${question.id}"><h4 class="media-heading" th:text="${question.title}" >我是天才</h4></a>
                     <span th:text="${question.description}">我智商高，相貌好，人品优秀，简直完美</span><br>
                     <span class="text-desc">
-                        <a href="#" th:href="@{/publish/} + ${question.getId()}" method="put"><span class="glyphicon glyphicon-pencil">编辑 ·</span></a>
                         <span th:text="${question.commentCnt}"></span> 个回复 ·
                         <span th:text="${question.viewCnt}"></span> 次浏览 ·
                         <span th:text="${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>

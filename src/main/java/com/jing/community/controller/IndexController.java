@@ -27,26 +27,8 @@ public class IndexController {
                         Model model,
                         @RequestParam(value = "page", defaultValue = "1") Integer page,
                         @RequestParam(value = "size", defaultValue = "3") Integer size){
-//        Cookie[] cookies = request.getCookies();
-//        String token = null;
-//        if(cookies != null && cookies.length != 0){
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("token")) {
-//                    token = cookie.getValue();
-//                    break;
-//                }
-//            }
-//        }
-//        if (token != null) {
-//            User user = userRepository.findByToken(token);
-//            request.getSession().setAttribute("user", user);
-//        }
 
-        // 获取首页所有文章列表
-//        Pageable pageable = new PageRequest(page - 1, 6, Sort.Direction.ASC);
-//        Page<questionService.list()> list = recordRepository.findAll(pageable);
         PageInationDto pagInations = questionService.list(page, size);
-
         model.addAttribute("pagInations", pagInations);
         return "index";
     }
