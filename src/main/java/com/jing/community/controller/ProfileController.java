@@ -21,7 +21,7 @@ public class ProfileController {
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable("action") String action, Model model, HttpServletRequest request,
                           @RequestParam(value = "page", defaultValue = "1") Integer page,
-                          @RequestParam(value = "size", defaultValue = "3") Integer size) {
+                          @RequestParam(value = "size", defaultValue = "4") Integer size) {
         if ("questions".equals(action)) {
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的问题");

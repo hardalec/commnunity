@@ -10,6 +10,7 @@
     <script src="js/bootstrap.min.js" type="application/javascript"  th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body class="body">
+<!-- topbar-->
 <div th:replace="/common/topbar::topbar"></div>
 
 <div class="container-fluid main">
@@ -30,7 +31,6 @@
                            th:value="${title}" placeholder="问题标题.....">
                 </div>
                 <br/>
-                <!--                              这里要注意title 都是空，不是null-->
                 <div class="form--group">
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
                     <textarea class="form-control" name="description" id="description"
@@ -45,6 +45,7 @@
                 <br>
                 <span class="alert alert-danger" th:text="${error}" th:if="${error!=null}"></span>
                 <button type="submit" class="btn btn-success btn-publish">成功</button>
+
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
@@ -53,7 +54,7 @@
                 由于较高的性能和较低的使用门槛，京东内部有很多的场景都在使用 Elasticsearch。 2015 年 6 月，京东着手开发了 Elasticsearch 的托管平台——杰思 (JElasticsearch)。杰思平台主要负责 Elasticsearch 集群的部署、运行监控、数据迁移、权限管理、插件开发、集群升级等日常维护工作。
                 目前杰思平台管理的集群覆盖了京东多条业务线，同时也覆盖了很多应用场景：
                 1.1 补充关系型数据库的结构化数据查询
-                主要应用的业务是商品、促销、优惠券、订单、收银台、物流、对账、评论等大数据量查询。此场景的核心诉求是高性能、稳定性和高可用性，部分场景会有检索要求，通常用于加速关系型数据库，业务系统通过 binlog 同步或业务双写完成数据同步。
+                主要应用的业务是通过 binlog 同步或业务双写完成数据同步。
             </h5>
         </div>
     </div>

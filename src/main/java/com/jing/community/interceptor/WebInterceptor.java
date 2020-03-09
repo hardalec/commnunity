@@ -21,6 +21,10 @@ public class WebInterceptor implements WebMvcConfigurer {
         // 本来应该是new 一个 拦截器，但是new 的拦截器无法注入repository 中的user数据
         // https://blog.csdn.net/HELLOMRP/article/details/79736502
         registry.addInterceptor(securityInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/", "/login.html", "/static/**", "/callback");
+                .excludePathPatterns("/", "/index.html", "/static", "/callback", "/publish",
+                        "/**/*.css",
+                        "/**/*.js", "/**/*.png", "/**/*.jpg",
+                        "/**/*.jpeg", "/**/*.gif", "/**/fonts/*"
+                        );
     }
 }

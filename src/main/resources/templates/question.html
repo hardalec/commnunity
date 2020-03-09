@@ -6,8 +6,10 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" th:href="@{/css/bootstrap-theme.min.css}">
     <link rel="stylesheet" href="css/community.css" th:href="@{/css/community.css}">
+
     <script src="js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script src="js/bootstrap.min.js" type="application/javascript"  th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="../static/js/community.js" th:src="@{/js/community.js}"></script>
 </head>
 <body class="body">
 <!-- topbar-->
@@ -29,9 +31,47 @@
                         th:href="@{/publish/} + ${questionDto.getId()}"><span class="glyphicon glyphicon-pencil">编辑 ·</span></a>
                 </span>
             </div>
-            <hr>
-            <div th:text="${questionDto.getDescription()}"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div th:text="${questionDto.getDescription()}"></div>
+                <hr>
+            </div>
+<!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>
+                    <span th:text="${questionDto.getCommentCnt()}">1</span> 个回复
+                </h4>
+            </div>
+            <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment:${commentList}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object touxiang img-rounded" src="#" th:src="${comment.avatarUrl}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div><span th:text="${comment.commentorName}"></span></div>
+                    <div><span th:text="${comment.content}">我智商高，相貌好，人品优秀，简直完美</span><br></div>
+                    <div>
+                        <span class="text-desc">
+                            <span class="glyphicon glyphicon-thumbs-up" ></span> like
+                            <span th:text="${comment.likecnt}"></span>
+                            <span class="glyphicon glyphicon-comment" ></span> comment
+                            <span class="pull-right" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+                        </span>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
+                <span><h4>提交回复</h4></span>
+                <input type="hidden" name="qustion_id" id="qustion_id" th:value="${questionDto.getId()}">
+                <textarea class="form-control" rows="3" id="content" name="content"></textarea>
+                <br>
+                <button type="submit" class="btn btn-success btn-publish" onclick="post()">回复</button>
+            </div>
         </div>
+
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
 
         </div>
