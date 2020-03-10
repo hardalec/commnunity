@@ -1,5 +1,6 @@
 package com.jing.community.dto;
 
+import com.jing.community.entity.Question;
 import com.jing.community.entity.User;
 import lombok.Data;
 
@@ -17,4 +18,5 @@ public class QuestionDto {
     private Integer likeCnt;
     private String tag;
     private User user;
+//    private Question question;
 }

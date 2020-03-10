@@ -9,7 +9,10 @@
 
     <script src="js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script src="js/bootstrap.min.js" type="application/javascript"  th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="../static/js/moment.js" th:src="@{/js/moment.js}"></script>
     <script src="../static/js/community.js" th:src="@{/js/community.js}"></script>
+
+
 </head>
 <body class="body">
 <!-- topbar-->
@@ -42,27 +45,41 @@
                     <span th:text="${questionDto.getCommentCnt()}">1</span> 个回复
                 </h4>
             </div>
+
+<!--            回复展示功能-->
             <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment:${commentList}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object touxiang img-rounded" src="#" th:src="${comment.avatarUrl}">
+                        <img class="media-object touxiang img-rounded" src="#" th:src="${comment.commentor.avatarUrl}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <div><span th:text="${comment.commentorName}"></span></div>
-                    <div><span th:text="${comment.content}">我智商高，相貌好，人品优秀，简直完美</span><br></div>
+                    <div><span th:text="${comment.commentor.name}"></span></div>
+                    <div><span th:text="${comment.comment.content}">我智商高，相貌好，人品优秀，简直完美</span><br></div>
                     <div>
                         <span class="text-desc">
-                            <span class="glyphicon glyphicon-thumbs-up" ></span> like
-                            <span th:text="${comment.likecnt}"></span>
-                            <span class="glyphicon glyphicon-comment" ></span> comment
-                            <span class="pull-right" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+                            <span class="glyphicon glyphicon-thumbs-up icon" ></span> like
+                            <span th:text="${comment.comment.likecnt}"></span>
+                            <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.comment.id}" onclick="collapseComments(this)"></span> comment
+                            <span class="pull-right" th:text="${#dates.format(comment.comment.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
                         </span>
+                    </div>
+<!--                    二级回复-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments-kuang"
+                         th:id="${'comment-'+comment.comment.id}">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control" placeholder="评论一下……"
+                                   th:id="${'input-'+comment.comment.id}">
+                            <br>
+                            <button type="button" class="btn btn-success pull-right" onclick="comment(this)"
+                                    th:data-id="${comment.comment.id}">评论
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <hr>
             </div>
-
+            <!--回复-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
                 <span><h4>提交回复</h4></span>
                 <input type="hidden" name="qustion_id" id="qustion_id" th:value="${questionDto.getId()}">

@@ -26,3 +26,24 @@
     font-weight: normal;
     color: #999;
 }
+
+.text-desc .icon {
+    cursor: pointer;
+}
+
+.text-desc .icon:hover{
+    color: #66afe9;
+}
+.subcomments {
+    /*margin-top: 5px;*/
+    /*margin-bottom: 7px;*/
+}
+
+.sub-comments-kuang {
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
