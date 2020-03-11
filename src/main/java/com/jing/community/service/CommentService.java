@@ -3,6 +3,7 @@ package com.jing.community.service;
 import com.jing.community.dto.CommentCreateDto;
 import com.jing.community.dto.CommentInfoDto;
 import com.jing.community.entity.Comment;
+import com.jing.community.entity.Question;
 import com.jing.community.entity.User;
 import com.jing.community.repository.CommentRepository;
 import com.jing.community.repository.UserRepository;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -60,7 +63,7 @@ public class CommentService {
     public List<CommentInfoDto> List(Integer Id, Integer type) {
         List<CommentInfoDto> commentInfoDtos = new ArrayList<>();
         List<Comment> commentList = commentRepository.findByParentId(Id);
-
+//        List<ProomRealTimeOut> collect = resultList.stream().sorted((h1, h2) -> h1.getCode().compareTo(h2.getCode())).collect(Collectors.toList());
         for (Comment comment : commentList) {
             if (comment.getType() == type) {
                 commentInfoDtos.add(this.setCommentInfo(comment));

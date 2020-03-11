@@ -1,5 +1,6 @@
 package com.jing.community.controller;
 
+import com.jing.community.cache.TagCache;
 import com.jing.community.dto.QuestionDto;
 import com.jing.community.entity.Question;
 import com.jing.community.entity.User;
@@ -18,19 +19,15 @@ import java.util.Optional;
 
 @Controller
 public class PublishController {
-
     @Autowired
     QuestionRepository questionRepository;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     QuestionService questionService;
-
     @GetMapping("/publish")
-    public String publish(){
-
+    public String publish(Model model){
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
     @PostMapping("/publish")
@@ -41,6 +38,7 @@ public class PublishController {
                            HttpServletRequest request,
                            Model model){
         // 获取输入信息进行回显
+        model.addAttribute("tags", TagCache.get());
         model.addAttribute("id", id);
         model.addAttribute("title", title);
         model.addAttribute("description", description);
@@ -85,6 +83,8 @@ public class PublishController {
     @GetMapping("/publish/{id}")
     public String editPublish(@PathVariable("id") Integer questionId, Model model){
         QuestionDto questionDto = questionService.getById(questionId);
+
+        model.addAttribute("tags", TagCache.get());
         model.addAttribute("id", questionId);
         model.addAttribute("title", questionDto.getTitle());
         model.addAttribute("description",questionDto.getDescription());

@@ -10,11 +10,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class QuestionService {
@@ -27,8 +29,10 @@ public class QuestionService {
     public PageInationDto list(Integer currentPage, Integer size) {
 
         // 获取该页下所有的文章
-        PageRequest pageRequest = PageRequest.of(currentPage - 1, size);
+        PageRequest pageRequest = PageRequest.of(currentPage - 1, size, Sort.Direction.DESC, "gmtCreate");
         Page<Question> questionList = questionRepository.findAll(pageRequest);
+//        List<ProomRealTimeOut> collect = resultList.stream().sorted((h1, h2) -> h1.getCode().compareTo(h2.getCode())).collect(Collectors.toList());
+
         List<QuestionDto> questionDtoList = new ArrayList<>();
         PageInationDto pageInationDto = new PageInationDto();
         // 获取每一个文章的作者信息
@@ -43,7 +47,7 @@ public class QuestionService {
             // 组装成列表
             questionDtoList.add(questionDto);
         }
-        Integer totalaticles = (int)questionRepository.count();
+        Integer totalaticles = (int) questionRepository.count();
         // 将列表拷入
         pageInationDto.setQuestionDtoList(questionDtoList);
         // 该页的展示信息获取完毕，接下来获取展示的页码数量
@@ -52,7 +56,7 @@ public class QuestionService {
         return pageInationDto;
     }
 
-    public QuestionDto getById(Integer id){
+    public QuestionDto getById(Integer id) {
         QuestionDto questionDto = new QuestionDto();
         Question question = questionRepository.findById(id).get();
         BeanUtils.copyProperties(question, questionDto);
@@ -65,5 +69,26 @@ public class QuestionService {
         Question question = questionRepository.findById(id).get();
         question.setViewCnt(question.getViewCnt() + 1);
         questionRepository.save(question);
+    }
+
+    public String[] getQuestionTags(Integer questionId) {
+        String[] tags = questionRepository.findById(questionId).get().getTag().split(",");
+        return tags;
+    }
+
+    public Set<Question> getRelatedQuestion(Integer id) {
+        String[] tags = getQuestionTags(id);
+        Set<Question> result = new HashSet<Question>();
+        for (String tag : tags) {
+            List<Question> related = questionRepository.findByTagLike("%" + tag + "%");
+            if (related != null || related.size() != 0) {
+                for (Question question : related) {
+                    if(question.getId() != id) {
+                        result.add(question);
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

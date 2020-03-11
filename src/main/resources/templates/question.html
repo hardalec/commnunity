@@ -34,7 +34,13 @@
                         th:href="@{/publish/} + ${questionDto.getId()}"><span class="glyphicon glyphicon-pencil">编辑 ·</span></a>
                 </span>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>
+            <div>
+                <span th:each="questionTag : ${questionTags}">
+                    <span th:text="${questionTag}" class="community-tag"></span>
+                </span>
+                <hr>
+            </div>
+<!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div th:text="${questionDto.getDescription()}"></div>
                 <hr>
@@ -60,7 +66,7 @@
                         <span class="text-desc">
                             <span class="glyphicon glyphicon-thumbs-up icon" ></span> like
                             <span th:text="${comment.comment.likecnt}"></span>
-                            <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.comment.id}" onclick="collapseComments(this)"></span> comment
+                            <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.comment.id}" onclick="collapseComments(this)" th:text="${comment.comment.commentcnt}"></span> comment
                             <span class="pull-right" th:text="${#dates.format(comment.comment.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
                         </span>
                     </div>
@@ -90,6 +96,25 @@
         </div>
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <img class="media-object touxiang img-circle center-block" src="#" th:src="${questionDto.user.avatarUrl}">
+                <h5 th:text="${questionDto.getUser().getName()}" class="center-block"></h5>
+            </div>
+            <hr>
+            <div>
+                <h4>相关文章</h4>
+                <div th:each="relateQ : ${relatedQuestion}">
+                    <a href="#" th:href="@{/question/} + ${relateQ.id}" th:text="${relateQ.title}"></a>
+                    <apan th></apan>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <h4 class="center-block">Web开发</h4>
+                <img class="media-object touxiang img-thumbnail center-block erweima"
+                        th:src="@{/images/erweima.jpg}"/>
+            </div>
+            </div>
 
         </div>
     </div>

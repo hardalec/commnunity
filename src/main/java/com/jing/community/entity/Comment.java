@@ -17,6 +17,7 @@ public class Comment {
     private Integer parentId;
     private Integer type;
     private Integer likecnt = 0;
+    private Integer commentcnt = 0;
     private String commentor;
     private String content;
     private long gmtCreate;

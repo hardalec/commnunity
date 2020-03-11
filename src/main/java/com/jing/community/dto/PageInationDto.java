@@ -28,7 +28,7 @@ public class PageInationDto {
 //        Integer totalaticles = (int)questionRepository.count();
 //        Integer totalaticles = (int)questionRepository.count();
         Integer totalPage = 1;
-        if(totalaticles > 0) totalPage = (int) Math.ceil( totalaticles / size);
+        if(totalaticles > 0) totalPage = (int) Math.ceil( 1.0 * totalaticles / size);
         if(currentPage < 1) currentPage = 1;
         if(currentPage > totalPage) currentPage = totalPage;
         this.currentPage = currentPage;
