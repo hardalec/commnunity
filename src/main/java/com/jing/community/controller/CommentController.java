@@ -7,6 +7,7 @@ import com.jing.community.entity.Question;
 import com.jing.community.repository.CommentRepository;
 import com.jing.community.repository.QuestionRepository;
 import com.jing.community.service.CommentService;
+import com.jing.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,17 @@ public class CommentController {
     QuestionRepository questionRepository;
     @Autowired
     CommentService commentService;
+    @Autowired
+    NotificationService notificationService;
 
 //    @ResponseBody
 //    @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @PostMapping("/comment")
     public Object post(@RequestBody CommentCreateDto commentCreateDto, HttpServletRequest request){
         commentService.setComment(commentCreateDto, request);
+        notificationService.setNotification(commentCreateDto, request);
+        notificationService.updateTopBar(request);
+
         if(commentCreateDto.getType() == 1){
             Question question = questionRepository.findById(commentCreateDto.getParentId()).get();
             question.setCommentCnt(question.getCommentCnt() + 1);

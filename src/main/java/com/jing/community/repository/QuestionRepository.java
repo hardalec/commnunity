@@ -12,13 +12,8 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
-//    List<Question> findAll(Question q, PageRequest pageRequest);
     List<Question> findAllByCreate(Integer create);
 
     List<Question> findByTagLike(String s);
 
-
-//    List<Question> findAllByCreate(Integer create);
-
-//    Integer findAll(Question q);
 }
