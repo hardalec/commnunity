@@ -2,6 +2,7 @@ package com.jing.community.entity;
 
 
 import lombok.Data;
+import org.hibernate.type.BigIntegerType;
 
 import javax.persistence.*;
 

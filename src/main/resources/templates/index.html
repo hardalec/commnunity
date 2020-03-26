@@ -11,7 +11,8 @@
 </head>
 <body class="body">
 <!-- topbar-->
-<div th:replace="/common/topbar::topbar"></div>
+<!--<div th:replace="/common/topbar ::topbar"></div>-->
+<div th:insert="~{common ::topbar}"></div>
 
 <div class="container-fluid main">
     <div class="row">
@@ -20,7 +21,6 @@
 <!--                class="glyphicon glyphicon-list"-->
                 <span  aria-hidden="true">发现</span>
             </h2>
-            <hr>
             <div class="media" th:each="question:${pagInations.questionDtoList}">
                 <div class="media-left">
                     <a href="#">

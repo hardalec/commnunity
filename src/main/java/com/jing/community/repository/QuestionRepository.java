@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
-    List<Question> findAllByCreate(Integer create);
+    List<Question> findAllByCreater(Integer create);
 
     List<Question> findByTagLike(String s);
 

@@ -38,7 +38,7 @@ public class QuestionService {
         // 获取每一个文章的作者信息
         for (Question question : questionList) {
             // 找到作者
-            User user = userRepository.findById(question.getCreate()).get();
+            User user = userRepository.findById(question.getCreater()).get();
             QuestionDto questionDto = new QuestionDto();
             // 将文章信息拷入
             BeanUtils.copyProperties(question, questionDto);
@@ -60,7 +60,7 @@ public class QuestionService {
         QuestionDto questionDto = new QuestionDto();
         Question question = questionRepository.findById(id).get();
         BeanUtils.copyProperties(question, questionDto);
-        User user = userRepository.findById(question.getCreate()).get();
+        User user = userRepository.findById(question.getCreater()).get();
         questionDto.setUser(user);
         return questionDto;
     }

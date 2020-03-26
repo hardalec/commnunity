@@ -6,17 +6,23 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" th:href="@{/css/bootstrap-theme.min.css}">
     <link rel="stylesheet" href="css/community.css" th:href="@{/css/community.css}">
+    <link rel="stylesheet" href="../static/css/editormd.preview.min.css" th:href="@{/css/editormd.preview.min.css}">
 
     <script src="js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script src="js/bootstrap.min.js" type="application/javascript"  th:src="@{/js/bootstrap.min.js}"></script>
     <script src="../static/js/moment.js" th:src="@{/js/moment.js}"></script>
     <script src="../static/js/community.js" th:src="@{/js/community.js}"></script>
+    <script src="../static/js/editormd.min.js" type="application/javascript" th:src="@{/js/editormd.min.js}"></script>
+    <script src="/js/lib/marked.min.js" type="application/javascript"></script>
+    <script src="/js/lib/prettify.min.js" type="application/javascript"></script>
+
 
 
 </head>
 <body class="body">
 <!-- topbar-->
-<div th:replace="/common/topbar::topbar"></div>
+<!--<div th:replace="/common/topbar::topbar"></div>-->
+<div th:insert="~{common ::topbar}"></div>
 
 <div class="container-fluid main">
     <div class="row">
@@ -41,11 +47,19 @@
                 <hr>
             </div>
 <!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div th:text="${questionDto.getDescription()}"></div>
-                <hr>
+<!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="markdown-view">-->
+<!--                <div th:text="${questionDto.getDescription()}"></div>-->
+<!--                <hr>-->
+<!--            </div>-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="markdown-view">
+                <textarea style="display:none;" th:text="${questionDto.getDescription()}">### Hello world!</textarea>
             </div>
-<!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>-->
+            <script type="text/javascript">
+                $(function() {
+                    var testView = editormd.markdownToHTML("markdown-view", {});
+                });
+            </script>
+            <!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>
                     <span th:text="${questionDto.getCommentCnt()}">1</span> 个回复

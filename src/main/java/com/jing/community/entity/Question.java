@@ -18,9 +18,10 @@ public class Question {
     private String description;
     private long gmtCreate;
     private long gmtModified;
-    private Integer create;
+    private Integer creater;
     private Integer viewCnt;
     private Integer commentCnt;
     private Integer likeCnt;
     private String tag;
+
 }

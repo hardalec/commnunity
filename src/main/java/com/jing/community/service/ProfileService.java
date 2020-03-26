@@ -36,7 +36,7 @@ public class ProfileService {
 //        PageRequest pageRequest = PageRequest.of(currentPage - 1, size);
 //        Optional<Question> questionList = questionRepository.findOne(example);
 
-        List<Question> questionList = questionRepository.findAllByCreate(user.getId());
+        List<Question> questionList = questionRepository.findAllByCreater(user.getId());
         Integer totalaticles = questionList.size();
         Integer start = currentPage*size - size;
         Integer end = currentPage * size <= totalaticles? currentPage * size : totalaticles;

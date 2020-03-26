@@ -1,12 +1,22 @@
 
-spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/community;AUTO_SERVER=TRUE
-    username: sa
-    password: 123
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:~/community;AUTO_SERVER=TRUE
+#    username: sa
+#    password: 123
 
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+##    url: jdbc:mysql:///bookstore_01?serverTimezone=UTC
+#    url: jdbc:mysql://localhost:3306/community2?serverTimezone=UTC
+#    username: root
+#    password: 123456
+#
+#
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#      dialect: org.hibernate.dialect.MySQL5Dialect
